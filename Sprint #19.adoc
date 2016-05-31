@@ -1,0 +1,37 @@
+= Sprint #19 Product Backlog Refinement
+
+== Attachment (Read)
+
+* NOTE: Document ACL is not supported
+** Write a failing acceptance test here
+** Update spec with some warnings
+* NOTE: Document nested messages are not support
+** Write a failing acceptance test here
+** Update spec with some warnings
+* TASK: Support inline attachment
+
+== Attachment (Write)
+
+* TASK: upload API
+* TASK: update SetMessage to support attachment with blobId
+** construct a multipart message with mime4j (lib is already used)
+* TASK: use a simple Cassandra TTL to handle upload expiration
+** remove TTL once file is referenced
+** use Attachment table to store data
+** load the whole file in memory for a start
+* TASK: handle a max size for upload
+
+== Search
+
+* TASK: deserialize Filter tree into a POJO tree
+* TASK: map the Filter POJO tree to a SearchQuery
+** NOTE: no Thread* support
+* TASK: make hasAttachment searchable via mailbox-api
+* TASK: make GetMessagesList call the search api
+
+== Questions
+
+* Do we want to manage quota on upload ? Ask that with INBOX and UX team
+* How hard would it be to filter on mailbox and/or users when use Filter on GetMessagesList
+* How hard is it the handle mailbox rename for search ?
+* Does Lucene project work for InMemory tests on Search ?
