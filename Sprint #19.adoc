@@ -5,7 +5,7 @@
 * NOTE: Document ACL is not supported
 ** Write a failing acceptance test here
 ** Update spec with some warnings
-* NOTE: Document nested messages are not support
+* NOTE: Document nested messages are not supported
 ** Write a failing acceptance test here
 ** Update spec with some warnings
 * TASK: Support inline attachment
