@@ -9,6 +9,7 @@
 ** Write a failing acceptance test here
 ** Update spec with some warnings
 * TASK: Support inline attachment
+* TASK: Support messages with mixed (html and text) content (special multipart case?)
 
 == Attachment (Write)
 
@@ -20,6 +21,8 @@
 ** use Attachment table to store data
 ** load the whole file in memory for a start
 * TASK: handle a max size for upload
+* TASK: support inline attachment
+* TASK: generate mixed content (text + html)?
 
 == Search
 
