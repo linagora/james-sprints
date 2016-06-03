@@ -37,4 +37,9 @@
 * Do we want to manage quota on upload ? Ask that with INBOX and UX team
 * How hard would it be to filter on mailbox and/or users when use Filter on GetMessagesList
 * How hard is it the handle mailbox rename for search ?
+
+You will need something that looks like **ReIndexerImpl**. Note : you can adapt it to elasticSearch and directly make the update query. It can be a good start. Then when performance will matter, you might need to implement something similar but relying on ElasticSearch updating a single field, to reduce load on Cassandra and to reduce network round trips.
+
 * Does Lucene project work for InMemory tests on Search ?
+
+In memory implementation search do not relly on Lucene at all. It is done threw fetching mailbox messages, and filtering them according to the search query. Every possible search query is supported. Have a look to **SimpleMessageSearchIndex**
