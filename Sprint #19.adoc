@@ -37,6 +37,7 @@
 == Questions
 
 * Do we want to manage quota on upload ? Ask that with INBOX and UX team
+** Answer : We don't care right now
 * How hard would it be to filter on mailbox and/or users when use Filter on GetMessagesList
 * How hard is it the handle mailbox rename for search ?
 
