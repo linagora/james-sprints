@@ -29,44 +29,13 @@
 * TASK: make hasAttachment searchable via mailbox-api
 * TASK: make GetMessagesList call the search api
 
-Remark. If you want to call here the search API for Messages you will have to problems :
- - It returns a list of UID. You may need to add information about mailboxes depending on your implementations choices
- - As such the returned document is not present (reduce network load) + the index document is not the original mail (text extraction). So you will still need a read to Cassandra after your read to ElasticSearch..
-
 == Questions
 
 * Do we want to manage quota on upload ? Ask that with INBOX and UX team
-
-From the spec : 
-
-....
-If uploading a file would take the user over quota, the server SHOULD delete previously uploaded (but unused) files before their expiry time. 
-....
-
-I guess so.
-
-Beware thow. IMAP quota do not have any concept like "user". It uses QuotaRoots. Mailboxes is attached to a QuotaRoot. The current implementation matches the notion of user, but you have no warranty quotaRoot definition will match the notion of user mailboxes.
-
 * How hard would it be to filter on mailbox and/or users when use Filter on GetMessagesList
-
-Several cases :
-
- - No filters means all messages the user can see. Then we need a user fileds added while indexing. Note that supporting shared mailboxes here will be hard....
- - Write consideration. We should ensure a user have the right to search a given mailbox. Note that current implementation do not check this.... If you use it directly with JMAP, where user can specify __any__ mailboxId in its request, this becomes a vulnerability.
-
 * How hard is it the handle mailbox rename for search ?
 
-Yes it is. All depends how you represent mailboxes. With the **SimpleMessageSearchIndex**, as it is built on top of MessageMapper fetching, you do not need anything.
-
-With ElasticSearch, it is more complicated as you need to reindex it, at least partially (mailbox field), or even completly with *parent-child* relationShpip.
-
-From ElasticSearch update API :
-
-....
-Note, this operation still means full reindex of the document, it just removes some network roundtrips and reduces chances of version conflicts between the get and the index. The _source field needs to be enabled for this feature to work.
-....
-
-You will need either way something that looks like **ReIndexerImpl**. Note : you can adapt it to elasticSearch and directly make the update query.
+You will need something that looks like **ReIndexerImpl**. Note : you can adapt it to elasticSearch and directly make the update query. It can be a good start. Then when performance will matter, you might need to implement something similar but relying on ElasticSearch updating a single field, to reduce load on Cassandra and to reduce network round trips.
 
 * Does Lucene project work for InMemory tests on Search ?
 
