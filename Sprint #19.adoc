@@ -10,6 +10,7 @@
 ** Update spec with some warnings
 * TASK: Support inline attachment
 * TASK: Support messages with mixed (html and text) content (special multipart case?)
+* TASK: Support attachments naming
 
 == Attachment (Write)
 
@@ -23,6 +24,7 @@
 * TASK: handle a max size for upload
 * TASK: support inline attachment
 * TASK: generate mixed content (text + html)?
+* TASK: support attachments naming
 
 == Search
 
