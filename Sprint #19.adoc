@@ -24,7 +24,6 @@
 * TASK: handle a max size for upload
 * TASK: support inline attachment
 * TASK: generate mixed content (text + html)?
-* TASK: support attachments naming
 
 == Search
 
