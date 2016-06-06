@@ -39,6 +39,7 @@
 * Do we want to manage quota on upload ? Ask that with INBOX and UX team
 ** Answer : We don't care right now
 * How hard would it be to filter on mailbox and/or users when use Filter on GetMessagesList
+** Answer: very. Off course no user indexing at all. James filtering API needs a Mailbox to search on. So it is not possible to compose any filter containing requests such as (inMailboxes=... or notInMailboxes=...). If we don't need compositing or a very simple compositing (2 clauses) the problem can be solved in JMAP backend. To have a plain support we need to end or work on unifying UID, ie a message should have a single id whatever is its mailbox. The good news: elasticsearch is already basing its indexing on such an UID, so maybe extending the API could fit our need for now.
 * How hard is it the handle mailbox rename for search ?
 ** Answer : It should work right now because mailboxId doesn't change on rename. We have to write a test anyway.
 
