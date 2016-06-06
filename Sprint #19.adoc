@@ -42,6 +42,11 @@
 
 You will need something that looks like **ReIndexerImpl**. Note : you can adapt it to elasticSearch and directly make the update query. It can be a good start. Then when performance will matter, you might need to implement something similar but relying on ElasticSearch updating a single field, to reduce load on Cassandra and to reduce network round trips.
 
-* Does Lucene project work for InMemory tests on Search ?
-
-In memory implementation search do not relly on Lucene at all. It is done threw fetching mailbox messages, and filtering them according to the search query. Every possible search query is supported. Have a look to **SimpleMessageSearchIndex**
+* Do we have an implementation that works without requiring filesystem and that is fast to start for InMemory tests ?
+** Lucene search is not really tested but should support InMemory
+** There's a scanning search implementation, it's slow but should work
+** IMAP only ask for substring matching, but JMAP suggest full text search
+** ES does not conform to IMAP search but is ok for JMAP
+** JMAP says `The exact semantics for matching String fields is deliberately not defined to allow for flexibility in indexing implementation, subject to the following` so any impl should be ok, we only have to be careful about test involving tests
+** ES helps implementing https://tools.ietf.org/html/rfc6237 
+** We can make UidSearchOnIndex and ElasticSearchIntegrationTest to run on all search impl
