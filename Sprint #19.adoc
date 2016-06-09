@@ -15,6 +15,7 @@
 == Attachment (Write)
 
 * TASK: upload API
+** NOTE: does not handle quota
 * TASK: update SetMessage to support attachment with blobId
 ** construct a multipart message with mime4j (lib is already used)
 * TASK: use a simple Cassandra TTL to handle upload expiration
@@ -28,11 +29,18 @@
 
 == Search
 
+* TASK: port ES test suite to Scanning Search and Lucene
+* TASK: demonstrate with a test that mailbox renaming works
 * TASK: deserialize Filter tree into a POJO tree
 * TASK: map the Filter POJO tree to a SearchQuery
 ** NOTE: no Thread* support
 * TASK: make hasAttachment searchable via mailbox-api
 * TASK: make GetMessagesList call the search api
+* TASK: multi-mailbox support in GetMessagesList
+** NOTE: index users that have access to a message
+** NOTE: add an api in MessageSearchIndex to query regarless of a mailbox
+** NOTE: add inMailboxes and notInMailboxes into SearchQuery
+** NOTE: implement trivial inMailboxes and notInMailboxes filtering into all MessageSearchIndex implementations
 
 == Questions
 
