@@ -2,45 +2,114 @@
 
 == Attachment (Read)
 
-* NOTE: Document ACL is not supported
+* TASK: Document ACL is not supported and authentication
 ** Write a failing acceptance test here
 ** Update spec with some warnings
-* NOTE: Document nested messages are not supported
+
+1 pt
+
+* TASK: Document nested messages are not supported
 ** Write a failing acceptance test here
 ** Update spec with some warnings
+
+1 pt
+
+* TASK: port GetMessages tests to cucumber
+
+3 pts
+
 * TASK: Support inline attachment
+** NOTE: cid and isInline should be stored into Message.attachments
+** NOTE: acceptance based on cucumber
+
+5 pts
+
 * TASK: Support messages with mixed (html and text) content (special multipart case?)
+** NOTE: acceptance test send a mail with a multipart/mixed containing an html attachment 
+
+2 pts
+
 * TASK: Support attachments naming in getMessages and download end point
+** NOTE: update the template to include the name
+** NOTE: put the attachment name into Message.attachments
+
+3 pts
 
 == Attachment (Write)
 
 * TASK: upload API
 ** NOTE: does not handle quota
+** NOTE: does not handle expiration
+** NOTE: define an hard-coded max-size
+** NOTE: Implement an AttachmentManager
+** NOTE: authenticate
+
+3 pts
+
 * TASK: update SetMessage to support attachment with blobId
-** construct a multipart message with mime4j (lib is already used)
-* TASK: use a simple Cassandra TTL to handle upload expiration
-** remove TTL once file is referenced
-** use Attachment table to store data
-** load the whole file in memory for a start
-* TASK: handle a max size for upload
-* TASK: support inline attachment
-* TASK: generate mixed content (text + html)?
-* TASK: support attachments naming in setMessages
+** NOTE: construct a multipart message with mime4j (lib is already used)
+** NOTE: support inline attachment
+** NOTE: support attachments naming
+
+3 pts
+
+* TASK: generate mixed content (text + html)
+** NOTE: generate a multipart/alternative email
+
+2 pts
+
 
 == Search
 
 * TASK: port ES test suite to Scanning Search and Lucene
-* TASK: demonstrate with a test that mailbox renaming works
+** NOTE: report test coverage
+
+3 pts
+
 * TASK: deserialize Filter tree into a POJO tree
+** NOTE: generate a toString for the tree
+
+3 pts
+
+* TASK: make hasAttachment searchable via mailbox-api
+** NOTE: update ES schema
+** NOTE: add the criterion to SearchQuery
+** NOTE: implement hasAttachment filtering into 3 backends
+** NOTE: must be done before Filter to SearchQuery conversion
+
+3 pts
+
+* TASK: index users that have access to a message
+** NOTE: update ES schema
+** NOTE: add user filter when executing any query
+
+2 pts
+
+* TASK: add inMailboxes criteria into SearchQuery
+** NOTE: implement hasAttachment filtering into 3 backends
+** NOTE: must be done before Filter to SearchQuery conversion
+
+2 pts
+
+* TASK: multi-mailbox support in GetMessagesList
+** NOTE: add an api in MessageSearchIndex to query regarless of a mailbox
+** NOTE: CAPABILITY
+
+2 pts
+
 * TASK: map the Filter POJO tree to a SearchQuery
 ** NOTE: no Thread* support
-* TASK: make hasAttachment searchable via mailbox-api
-* TASK: make GetMessagesList call the search api
-* TASK: multi-mailbox support in GetMessagesList
-** NOTE: index users that have access to a message
-** NOTE: add an api in MessageSearchIndex to query regarless of a mailbox
-** NOTE: add inMailboxes and notInMailboxes into SearchQuery
-** NOTE: implement trivial inMailboxes and notInMailboxes filtering into all MessageSearchIndex implementations
+** NOTE: generate a toString for the tree
+
+3 pts
+
+* TASK: make GetMessagesList call the search api implementations
+
+2 pts
+
+* TASK: implement some significant search
+
+3 pts
 
 == Questions
 
