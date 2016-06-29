@@ -52,6 +52,36 @@
 
 3 pts
 
+* TASK: handle large subject when indexing (INBOX-381)
+
+
+== Misc
+
+* TASK: generate a website for JMAP documentation with annotations
+** NOTE: we already have the commands to generate some html
+** NOTE: add the publish process into jenkins (master)
+** NOTE: create a container with the html files and static webserver
+** NOTE: handle reverse proxy to james.open-paas.org/doc -> jmap spectification; james.open-paas.org/ci -> jenkins
+
+* TASK: Use only mailbox-api into jmap
+** NOTE: use only managers, not mappers
+** NOTE: write an attachment manager
+** TODO: list all conversion work needed (MessageResultIterator et al.)
+
+* TASK: Add 3 gatling scenarios 
+** TODO: ask UX team about usages
+
+* TASK: fix bug INBOX-37 about handling cyrillic content in VacationMailet
+
+* TASK: decode email title when it contains charset tags (INBOX-37, to be split)
+
+* TODO: retry INBOX-289
+
+* TASK: allow empty subject when sending mail (INBOX-291)
+** TODO: ask INBOX if it's ok to put an empty subject instead of null or absent value
+
+* TODO: retry INBOX-298 and/or read the specification
+
 == Questions
 
 * How hard would it be to filter on mailbox and/or users when use Filter on GetMessagesList
