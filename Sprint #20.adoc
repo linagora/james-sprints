@@ -1,0 +1,69 @@
+= Sprint #20 Product Backlog Refinement
+
+== Search
+
+* TASK: port ES test suite to Scanning Search and Lucene
+** NOTE: report test coverage, don't implement features
+
+3 pts
+
+* TASK: deserialize Filter tree into a POJO tree (JSON in, POJO out)
+** NOTE: generate a toString for the tree
+
+3 pts
+
+* TASK: make hasAttachment searchable via mailbox-api
+** NOTE: update ES schema
+** NOTE: add the criterion to SearchQuery
+** NOTE: implement hasAttachment filtering into 3 backends
+** NOTE: must be done before Filter to SearchQuery conversion
+
+3 pts
+
+* TASK: index users that have access to a message
+** NOTE: update ES schema
+** NOTE: add user filter when executing any query
+
+2 pts
+
+* TASK: add inMailboxes criteria into SearchQuery
+** NOTE: implement inMailboxes filtering into 3 backends
+** NOTE: must be done before Filter to SearchQuery conversion
+
+2 pts
+
+* TASK: multi-mailbox support in GetMessagesList
+** NOTE: add an api in MessageSearchIndex to query regarless of a mailbox
+** NOTE: CAPABILITY
+
+2 pts
+
+* TASK: map the Filter POJO tree to a SearchQuery
+** NOTE: no Thread* support
+** NOTE: generate a toString for the tree
+
+3 pts
+
+* TASK: make GetMessagesList call the search api implementations
+
+2 pts
+
+* TASK: implement some significant search
+
+3 pts
+
+== Questions
+
+* How hard would it be to filter on mailbox and/or users when use Filter on GetMessagesList
+** Answer: very. Off course no user indexing at all. James filtering API needs a Mailbox to search on. So it is not possible to compose any filter containing requests such as (inMailboxes=... or notInMailboxes=...). If we don't need compositing or a very simple compositing (2 clauses) the problem can be solved in JMAP backend. To have a plain support we need to end or work on unifying UID, ie a message should have a single id whatever is its mailbox. The good news: elasticsearch is already basing its indexing on such an UID, so maybe extending the API could fit our need for now.
+* How hard is it the handle mailbox rename for search ?
+** Answer : It should work right now because mailboxId doesn't change on rename. We have to write a test anyway.
+
+* Do we have an implementation that works without requiring filesystem and that is fast to start for InMemory tests ?
+** Lucene search is not really tested but should support InMemory
+** There's a scanning search implementation, it's slow but should work
+** IMAP only ask for substring matching, but JMAP suggest full text search
+** ES does not conform to IMAP search but is ok for JMAP
+** JMAP says `The exact semantics for matching String fields is deliberately not defined to allow for flexibility in indexing implementation, subject to the following` so any impl should be ok, we only have to be careful about test involving tests
+** ES helps implementing https://tools.ietf.org/html/rfc6237 
+** We can make UidSearchOnIndex and ElasticSearchIntegrationTest to run on all search impl
