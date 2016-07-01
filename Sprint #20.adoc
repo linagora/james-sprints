@@ -57,6 +57,8 @@
 
 == Misc
 
+* TASK: emit a New Account request (on https://id.apache.org/acreq/ ?) for Raphaël
+
 * TASK: generate a website for JMAP documentation with annotations
 ** NOTE: we already have the commands to generate some html
 ** NOTE: add the publish process into jenkins (master)
