@@ -82,6 +82,8 @@
 
 * TODO: retry INBOX-298 and/or read the specification
 
+* TODO: see what must be done to implement JAMES-1785 (setMessages : moving a message)
+
 == Questions
 
 * TODO: check that jmap `text` search maps well on what ES do right now
