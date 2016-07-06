@@ -93,7 +93,7 @@
 "text: String|null Looks for the text in the from, to, cc, bcc, subject, textBody or htmlBody properties of the message."
 ** NOTE: the easiest way (without changing the ES indices) is to handle multiple fields in `IndexableMessage`.
 For example, `IndexableMessage` may have a `text` attibute which will be the concatenation of `from`, `to`, `cc`, `bcc`, `subject`, `textBody` and `htmlBody`
-** NOTE: we shouldmay also add a `body` attribute for `textBody` and `htmlBody`
+** NOTE: we may also add a `body` attribute for `textBody` and `htmlBody`
 
 * TODO: work on tasks ordering to to deliver support for `text` as fast as possible
 
