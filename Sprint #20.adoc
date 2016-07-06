@@ -97,7 +97,12 @@ For example, `IndexableMessage` may have a `text` attibute which will be the con
 ** NOTE: we may also add a `body` attribute for `textBody` and `htmlBody`
 ** NOTE: for information: http://stackoverflow.com/questions/22617674/does-elasticsearch-have-compound-indexes#22657490
 
-* TODO: work on tasks ordering to to deliver support for `text` as fast as possible
+* NOTE: to deliver support for `text` as fast as possible, first tasks should be :
+** TASK: port ES test suite to Scanning Search and Lucene
+** TASK: deserialize Filter tree into a POJO tree (JSON in, POJO out)
+** TASK: map the Filter POJO tree to a SearchQuery
+** TASK: index users that have access to a message
+** TASK: make GetMessagesList call the search api implementations
 
 
 * How hard would it be to filter on mailbox and/or users when use Filter on GetMessagesList
