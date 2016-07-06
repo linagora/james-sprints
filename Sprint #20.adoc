@@ -85,6 +85,16 @@
 * TODO: retry INBOX-298 and/or read the specification
 
 * TODO: see what must be done to implement JAMES-1785 (setMessages : moving a message)
+** NOTE: we only have to change SetMessagesUpdateProcessor which actually only updates the flags.
+** NOTE: we must use the MailboxManager.moveMessages method.
+** NOTE: it's a good time to remove the mapper dependencies from SetMessagesUpdateProcessor
+** NOTE: and also port SetMessagesMethodTest to cucumber
+
+  Scenario: a user can move a message from a mailbox to another
+    Given the user has a message in "A" mailbox
+    When the user moves the message "["username@domain.tld|A|1"]" to the "B" mailbox
+    Then no error is returned
+    And the updated list should contain 1 message with id "["username@domain.tld|A|1"]"
 
 == Questions
 
