@@ -94,6 +94,7 @@
 ** NOTE: the easiest way (without changing the ES indices) is to handle multiple fields in `IndexableMessage`.
 For example, `IndexableMessage` may have a `text` attibute which will be the concatenation of `from`, `to`, `cc`, `bcc`, `subject`, `textBody` and `htmlBody`
 ** NOTE: we may also add a `body` attribute for `textBody` and `htmlBody`
+** NOTE: for information: http://stackoverflow.com/questions/22617674/does-elasticsearch-have-compound-indexes#22657490
 
 * TODO: work on tasks ordering to to deliver support for `text` as fast as possible
 
