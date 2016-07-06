@@ -90,7 +90,12 @@
 == Questions
 
 * TODO: check that jmap `text` search maps well on what ES do right now
-* TODO: work on tasks ordering to to deliver support for `text` as fast as possible
+* NOTE: to deliver support for `text` as fast as possible, first tasks should be :
+** TASK: port ES test suite to Scanning Search and Lucene
+** TASK: deserialize Filter tree into a POJO tree (JSON in, POJO out)
+** TASK: map the Filter POJO tree to a SearchQuery
+** TASK: index users that have access to a message
+** TASK: make GetMessagesList call the search api implementations
 
 
 * How hard would it be to filter on mailbox and/or users when use Filter on GetMessagesList
