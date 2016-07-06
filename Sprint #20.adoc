@@ -82,7 +82,14 @@
 * TASK: allow empty subject when sending mail (INBOX-291)
 ** TODO: ask INBOX if it's ok to put an empty subject instead of null or absent value
 ** NOTE: after rereading the spec, in saving draft: "subject: Optional. Defaults to the empty string ("")." So I think we should allow subject to be null in input (setMessages), and in this case return empty string as output (getMessages).
+
 * TODO: retry INBOX-298 and/or read the specification
+** NOTE: still valide, here is the specification on those properties:
+*** textBody: String|null The plain text body part for the message. If there is only an HTML version of the body, a plain text version will be generated from this.
+*** htmlBody: String|null The HTML body part for the message if present. If there is only a plain text version of the body, an HTML version will be generated from this.
+** NOTE: two cucumber tests are all ready present:
+*** Scenario: Retrieving message should return attachments and html body when some attachments and html message
+*** Scenario: Retrieving message should return attachments and text body when some attachments and text message
 
 * TODO: see what must be done to implement JAMES-1785 (setMessages : moving a message)
 
