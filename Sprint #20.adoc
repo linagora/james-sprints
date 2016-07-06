@@ -78,6 +78,7 @@
 * TASK: decode email title when it contains charset tags (INBOX-37, to be split)
 
 * TODO: retry INBOX-289
+** NOTE: Cannot reproduce, this issue is already closed with this resolution.
 
 * TASK: allow empty subject when sending mail (INBOX-291)
 ** TODO: ask INBOX if it's ok to put an empty subject instead of null or absent value
