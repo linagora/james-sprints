@@ -100,6 +100,18 @@
 ** NOTE: we can handle only htmlBody->textBody conversion for now: https://groups.google.com/forum/#!topic/jmap-discuss/w9tbelGx_ek
 
 * TODO: see what must be done to implement JAMES-1785 (setMessages : moving a message)
+** NOTE: we only have to change SetMessagesUpdateProcessor which actually only updates the flags.
+** NOTE: we must use the MailboxManager.moveMessages method.
+** NOTE: this task should be done after breaking the mappers dependency.
+** NOTE: it's a good time to port SetMessagesMethodTest to cucumber
+
+  Scenario: a user can move a message from a mailbox to another
+    Given the user has a message in "A" mailbox
+    When the user moves the message "["username@domain.tld|A|1"]" to the "B" mailbox
+    Then no error is returned
+    And the updated list should contain 1 message with id "["username@domain.tld|A|1"]"
+
+** NOTE: we have to be carefull on the message id we are returning (old MailboxPath, not the new MailboxPath)
 
 == Questions
 
