@@ -68,7 +68,13 @@
 * TASK: Use only mailbox-api into jmap
 ** NOTE: use only managers, not mappers
 ** NOTE: write an attachment manager
-** TODO: list all conversion work needed (MessageResultIterator et al.)
+** NOTE: MessageResult, Header needs some api love, more methods to extract data, etc
+** NOTE: SortToComparatorConvertor should be migrated to MessageResult (2 fields : internalDate and id)
+** NOTE: MessageResult to MessageId (just have to extract uid for now but unique storage id needed later)
+** NOTE: Rewrite MessageFactory to convert a MessageResult into a jmap.message (using mime4j if needed)
+** NOTE: Rework mailbox to work with MailboxPath instead of mailboxId (not sure it's ok)
+** NOTE: Extends MailboxMetadata to retrieve total messages, unread messages
+** NOTE: extract tika extractors into a new sub-project
 
 * TASK: Add 3 gatling scenarios 
 ** TODO: ask UX team about usages
