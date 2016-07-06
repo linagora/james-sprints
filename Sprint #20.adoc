@@ -96,6 +96,8 @@
     Then no error is returned
     And the updated list should contain 1 message with id "["username@domain.tld|A|1"]"
 
+** NOTE: we have to be carefull on the message id we are returning (old MailboxPath, not the new MailboxPath)
+
 == Questions
 
 * TODO: check that jmap `text` search maps well on what ES do right now
