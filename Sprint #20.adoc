@@ -52,18 +52,30 @@
 
 3 pts
 
-* TASK: handle large subject when indexing (INBOX-381)
+* TASK: handle jmap `text` search in ES
+** NOTE: here is the specification from the text property on FilterCondition:
+"text: String|null Looks for the text in the from, to, cc, bcc, subject, textBody or htmlBody properties of the message."
+** NOTE: the easiest way (without changing the ES indices) is to handle multiple fields in `IndexableMessage`.
+For example, `IndexableMessage` may have a `text` attibute which will be the concatenation of `from`, `to`, `cc`, `bcc`, `subject`, `textBody` and `htmlBody`
+** NOTE: we may also add a `body` attribute for `textBody` and `htmlBody`
+** NOTE: for information: http://stackoverflow.com/questions/22617674/does-elasticsearch-have-compound-indexes#22657490
+** NOTE: add a CAPABILITY
 
+3 pts
+
+* TASK: handle large subject when indexing (INBOX-381)
+** TODO: what should we answer when subject (or anything else) too large ?
 
 == Misc
-
-* TASK: emit a New Account request (on https://id.apache.org/acreq/ ?) for Raphaël
 
 * TASK: generate a website for JMAP documentation with annotations
 ** NOTE: we already have the commands to generate some html
 ** NOTE: add the publish process into jenkins (master)
 ** NOTE: create a container with the html files and static webserver
 ** NOTE: handle reverse proxy to james.open-paas.org/doc -> jmap spectification; james.open-paas.org/ci -> jenkins
+** NOTE: push container to anakin
+
+To do after swarm and docker 1.12 migration
 
 * TASK: Use only mailbox-api into jmap
 ** NOTE: use only managers, not mappers
@@ -76,20 +88,50 @@
 ** NOTE: Extends MailboxMetadata to retrieve total messages, unread messages
 ** NOTE: extract tika extractors into a new sub-project
 
+Deserves its own sprint
+
+* TODO: importMessages
+
+* TODO: create a message corpus from internet mailing list / forums
+
 * TASK: Add 3 gatling scenarios 
 ** TODO: ask UX team about usages
+** NOTE: build some dataset for users mailbox
+** NOTE: run for enough users to avoid cache effects
+** NOTE: pick from suggestions :
+```
+Create and send an email of X characters writing in Y minutes (X=200, 1<Y<30) with automatic save of the draft. One or more recipients
+Create and send an email of X characters with Y attachments of Z bytes (?). One or more recipients
+Navigate in the list of emails (next page, end of the list...)
+Receive a bunch of X new emails (0<X<100?)
+Open an email and reply with X characters writing in Y minutes (X=200, Y=5)
+Search a simple text in a big complex Inbox
+Search all tagged/unread emails
+Move X email in a folder (0<X<10)
+```
+
+* TASK: finish vacation partial update ticket
+
+2 pts
+
+* TASK: finish 3 pending gatling tickets
+
+5 pts
 
 * TASK: fix bug INBOX-37 about handling cyrillic content in VacationMailet
 
+2 pts
+
 * TASK: decode email title when it contains charset tags (INBOX-37, to be split)
 
-* TODO: retry INBOX-289
-** NOTE: Cannot reproduce, this issue is already closed with this resolution.
+2 pts
 
 * TASK: allow empty subject when sending mail (INBOX-291)
 ** NOTE: after rereading the spec, in saving draft: "subject: Optional. Defaults to the empty string ("")." So we have to allow subject to be null in input (setMessages), and in this case return empty string as output (getMessages).
 
-* TODO: retry INBOX-298 and/or read the specification
+=> Laura
+
+* TASK: retry INBOX-298 and/or read the specification
 ** NOTE: still valide, here is the specification on those properties:
 *** textBody: String|null The plain text body part for the message. If there is only an HTML version of the body, a plain text version will be generated from this.
 *** htmlBody: String|null The HTML body part for the message if present. If there is only a plain text version of the body, an HTML version will be generated from this.
@@ -97,6 +139,10 @@
 *** Scenario: Retrieving message should return attachments and html body when some attachments and html message
 *** Scenario: Retrieving message should return attachments and text body when some attachments and text message
 ** NOTE: we can handle only htmlBody->textBody conversion for now: https://groups.google.com/forum/#!topic/jmap-discuss/w9tbelGx_ek
+** NOTE: handle htmlBody -> textBody conversion only
+
+2 pts
+
 
 * TODO: see what must be done to implement JAMES-1785 (setMessages : moving a message)
 ** NOTE: we only have to change SetMessagesUpdateProcessor which actually only updates the flags.
@@ -114,16 +160,7 @@
 
 == Questions
 
-* TODO: check that jmap `text` search maps well on what ES do right now
-** NOTE: here is the specification from the text property on FilterCondition:
-"text: String|null Looks for the text in the from, to, cc, bcc, subject, textBody or htmlBody properties of the message."
-** NOTE: the easiest way (without changing the ES indices) is to handle multiple fields in `IndexableMessage`.
-For example, `IndexableMessage` may have a `text` attibute which will be the concatenation of `from`, `to`, `cc`, `bcc`, `subject`, `textBody` and `htmlBody`
-** NOTE: we may also add a `body` attribute for `textBody` and `htmlBody`
-** NOTE: for information: http://stackoverflow.com/questions/22617674/does-elasticsearch-have-compound-indexes#22657490
-
 * TODO: work on tasks ordering to to deliver support for `text` as fast as possible
-
 
 * How hard would it be to filter on mailbox and/or users when use Filter on GetMessagesList
 ** Answer: very. Off course no user indexing at all. James filtering API needs a Mailbox to search on. So it is not possible to compose any filter containing requests such as (inMailboxes=... or notInMailboxes=...). If we don't need compositing or a very simple compositing (2 clauses) the problem can be solved in JMAP backend. To have a plain support we need to end or work on unifying UID, ie a message should have a single id whatever is its mailbox. The good news: elasticsearch is already basing its indexing on such an UID, so maybe extending the API could fit our need for now.
