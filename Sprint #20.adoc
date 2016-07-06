@@ -90,6 +90,7 @@
 ** NOTE: two cucumber tests are all ready present:
 *** Scenario: Retrieving message should return attachments and html body when some attachments and html message
 *** Scenario: Retrieving message should return attachments and text body when some attachments and text message
+** NOTE: we can handle only htmlBody->textBody conversion for now: https://groups.google.com/forum/#!topic/jmap-discuss/w9tbelGx_ek
 
 * TODO: see what must be done to implement JAMES-1785 (setMessages : moving a message)
 
