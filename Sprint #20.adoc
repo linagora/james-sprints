@@ -87,8 +87,8 @@
 * TODO: see what must be done to implement JAMES-1785 (setMessages : moving a message)
 ** NOTE: we only have to change SetMessagesUpdateProcessor which actually only updates the flags.
 ** NOTE: we must use the MailboxManager.moveMessages method.
-** NOTE: it's a good time to remove the mapper dependencies from SetMessagesUpdateProcessor
-** NOTE: and also port SetMessagesMethodTest to cucumber
+** NOTE: this task should be done after breaking the mappers dependency.
+** NOTE: it's a good time to port SetMessagesMethodTest to cucumber
 
   Scenario: a user can move a message from a mailbox to another
     Given the user has a message in "A" mailbox
