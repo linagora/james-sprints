@@ -80,8 +80,8 @@
 * TODO: retry INBOX-289
 
 * TASK: allow empty subject when sending mail (INBOX-291)
-** TODO: ask INBOX if it's ok to put an empty subject instead of null or absent value
-** NOTE: after rereading the spec, in saving draft: "subject: Optional. Defaults to the empty string ("")." So I think we should allow subject to be null in input (setMessages), and in this case return empty string as output (getMessages).
+** NOTE: after rereading the spec, in saving draft: "subject: Optional. Defaults to the empty string ("")." So we have to allow subject to be null in input (setMessages), and in this case return empty string as output (getMessages).
+
 * TODO: retry INBOX-298 and/or read the specification
 
 * TODO: see what must be done to implement JAMES-1785 (setMessages : moving a message)
