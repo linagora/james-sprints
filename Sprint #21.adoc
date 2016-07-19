@@ -21,6 +21,14 @@
 
 == Misc
 
+* TASK: generate a new website for James
+** NOTE: work with Neoma on this
+** NOTE: define the target, the content
+** NOTE: find examples of existing website
+** NOTE: logo? use/update the call for logo?
+
+=> Laura
+
 * TASK: generate a website for JMAP documentation with annotations
 ** NOTE: we already have the commands to generate some html
 ** NOTE: add the publish process into jenkins (master)
