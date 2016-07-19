@@ -84,6 +84,15 @@ Move X email in a folder (0<X<10)
 
 => Laura
 
+* TASK: JAMES-1432 Support TimeUnits in RemoteDelivery delayTime
+** TODO: look if it not really complicated
+
+=> Laura
+
+* TASK: JAMES-1505 Imprecise SMTP authentication
+
+=> Laura
+
 * TASK: retry INBOX-298 and/or read the specification
 ** NOTE: still valide, here is the specification on those properties:
 *** textBody: String|null The plain text body part for the message. If there is only an HTML version of the body, a plain text version will be generated from this.
@@ -138,6 +147,12 @@ Move X email in a folder (0<X<10)
 
 * TASK: Remove old james-* from github?
 ** NOTE: we can keep our forks but remove the official ones to be clearer with new comers
+
+* TASK? Include jenkins workflow (james-jenkinks) into main James repository using Jenkinsfile
+
+* TASK: migrate to Jenkins 2
+
+* TASK: search for subjets for Apache Con (time limit on September)
 
 == Questions
 
