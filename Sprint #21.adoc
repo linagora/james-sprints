@@ -1,0 +1,143 @@
+= Sprint #21 Product Backlog Refinement
+
+== Search
+
+* TASK: make hasAttachment searchable via mailbox-api
+** NOTE: update ES schema
+** NOTE: add the criterion to SearchQuery
+** NOTE: implement hasAttachment filtering into 3 backends
+** NOTE: must be done before Filter to SearchQuery conversion
+
+3 pts
+
+* TASK: implement some significant search
+
+3 pts
+
+* TASK: handle large subject when indexing (INBOX-381)
+** TODO: what should we answer when subject (or anything else) too large ?
+
+* TASK: handle notInMailboxes filter
+
+== Misc
+
+* TASK: generate a website for JMAP documentation with annotations
+** NOTE: we already have the commands to generate some html
+** NOTE: add the publish process into jenkins (master)
+** NOTE: create a container with the html files and static webserver
+** NOTE: handle reverse proxy to james.open-paas.org/doc -> jmap spectification; james.open-paas.org/ci -> jenkins
+** NOTE: push container to anakin
+
+To do after swarm and docker 1.12 migration
+
+* TASK: Use only mailbox-api into jmap
+** NOTE: use only managers, not mappers
+** NOTE: write an attachment manager
+** NOTE: MessageResult, Header needs some api love, more methods to extract data, etc
+** NOTE: SortToComparatorConvertor should be migrated to MessageResult (2 fields : internalDate and id)
+** NOTE: MessageResult to MessageId (just have to extract uid for now but unique storage id needed later)
+** NOTE: Rewrite MessageFactory to convert a MessageResult into a jmap.message (using mime4j if needed)
+** NOTE: Rework mailbox to work with MailboxPath instead of mailboxId (not sure it's ok)
+** NOTE: Extends MailboxMetadata to retrieve total messages, unread messages
+** NOTE: extract tika extractors into a new sub-project
+
+Deserves its own sprint
+
+* TODO: importMessages
+
+* TODO: create a message corpus from internet mailing list / forums
+
+* TASK: Add 3 gatling scenarios 
+** TODO: ask UX team about usages
+** NOTE: build some dataset for users mailbox
+** NOTE: run for enough users to avoid cache effects
+** NOTE: pick from suggestions :
+```
+Create and send an email of X characters writing in Y minutes (X=200, 1<Y<30) with automatic save of the draft. One or more recipients
+Create and send an email of X characters with Y attachments of Z bytes (?). One or more recipients
+Navigate in the list of emails (next page, end of the list...)
+Receive a bunch of X new emails (0<X<100?)
+Open an email and reply with X characters writing in Y minutes (X=200, Y=5)
+Search a simple text in a big complex Inbox
+Search all tagged/unread emails
+Move X email in a folder (0<X<10)
+```
+
+* TASK: finish vacation partial update ticket
+
+2 pts
+
+* TASK: finish 3 pending gatling tickets
+
+5 pts
+
+* TASK: fix bug INBOX-37 about handling cyrillic content in VacationMailet
+
+2 pts
+
+* TASK: decode email title when it contains charset tags (INBOX-37, to be split)
+
+2 pts
+
+* TASK: allow empty subject when sending mail (INBOX-291)
+** NOTE: after rereading the spec, in saving draft: "subject: Optional. Defaults to the empty string ("")." So we have to allow subject to be null in input (setMessages), and in this case return empty string as output (getMessages).
+
+=> Laura
+
+* TASK: retry INBOX-298 and/or read the specification
+** NOTE: still valide, here is the specification on those properties:
+*** textBody: String|null The plain text body part for the message. If there is only an HTML version of the body, a plain text version will be generated from this.
+*** htmlBody: String|null The HTML body part for the message if present. If there is only a plain text version of the body, an HTML version will be generated from this.
+** NOTE: two cucumber tests are all ready present:
+*** Scenario: Retrieving message should return attachments and html body when some attachments and html message
+*** Scenario: Retrieving message should return attachments and text body when some attachments and text message
+** NOTE: we can handle only htmlBody->textBody conversion for now: https://groups.google.com/forum/#!topic/jmap-discuss/w9tbelGx_ek
+** NOTE: handle htmlBody -> textBody conversion only
+
+2 pts
+
+
+* TODO: see what must be done to implement JAMES-1785 (setMessages : moving a message)
+** NOTE: we only have to change SetMessagesUpdateProcessor which actually only updates the flags.
+** NOTE: we must use the MailboxManager.moveMessages method.
+** NOTE: this task should be done after breaking the mappers dependency.
+** NOTE: it's a good time to port SetMessagesMethodTest to cucumber
+
+  Scenario: a user can move a message from a mailbox to another
+    Given the user has a message in "A" mailbox
+    When the user moves the message "["username@domain.tld|A|1"]" to the "B" mailbox
+    Then no error is returned
+    And the updated list should contain 1 message with id "["username@domain.tld|A|1"]"
+
+** WARNING: needs unique message Id on move
+
+* TASK: Unique message Id
+** TODO: analyse what is needed to do it, at least in Cassandra for the storage + capabilites for other
+** TODO: which API to add to allow to get a message by its message Id
+** TODO: impact of message.getMailbox*es*Id? A PR is already open
+
+* TASK: Limit the number of threads used during test suite execution
+** NOTE: already a non working PR on this
+
+* TASK: Add roles on mailboxes
+** NOTE: MAILBOX-270 is needed for this
+
+* TASK: Install swarm with docker 1.12
+** NOTE: need to upgrade docker on the 4 servers
+
+* TASK: Create a network with docker 1.12/swarm
+
+* TASK: Launch all services on swarm
+** TODO: how to get the crypto keys? volume? specific service?
+
+* TASK: Configure Jenkins to run on swarm cluster
+** NOTE: including slaves
+
+* TASK: Launch nginx with affinity
+** NOTE: should be the 2 only services with affinity
+
+* TASK: Remove old james-* from github?
+** NOTE: we can keep our forks but remove the official ones to be clearer with new comers
+
+== Questions
+
